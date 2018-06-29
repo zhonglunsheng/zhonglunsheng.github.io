@@ -145,6 +145,226 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ActiveMq初体验" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/29/ActiveMq初体验/">ActiveMq初体验</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/29/ActiveMq初体验/" class="archive-article-date">
+  	<time datetime="2018-06-29T03:05:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="ActiveMq相关"><a href="#ActiveMq相关" class="headerlink" title="ActiveMq相关"></a>ActiveMq相关</h3><p>####WHAT<br>ActiveMQ是一种开源的，实现了JMS规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。</p>
+<p>####Advantage</p>
+<ul>
+<li>activemq可以很好的运行在任何JVM上，而不只是集成到JBoss的应用服务器中</li>
+<li>activemq支持大量的跨语言客户端</li>
+<li>activemq支持许多不同的协议，如Ajax，REST，Stomp，OpenWire，XMPP</li>
+<li>activemq支持可靠连接并且具有可配置的自动重连接</li>
+<li>activemq对Spring有很好的支持</li>
+<li>activemq是速度非常快；一般要比jbossmq快10倍</li>
+<li>activemq支持跨网络的分布式目的地</li>
+</ul>
+<p>####应用场景(消息队列)</p>
+<ul>
+<li>异步处理 </li>
+<li>流量削峰</li>
+<li>应用解耦</li>
+<li>消息通讯(点对点 私聊 发布和订阅 群聊)<br>详细介绍：<a href="https://blog.csdn.net/he90227/article/details/50800646" target="_blank" rel="noopener">https://blog.csdn.net/he90227/article/details/50800646</a></li>
+</ul>
+<p>####相关问题和解决方案</p>
+<ul>
+<li>服务挂掉<br>非持久化消息是存储在内存中的，持久化消息是存储在文件中的 在非持久化消息堆积到一定程度，内存告急的时候，ActiveMQ会将内存中的非持久化消息写入临时文件中，以腾出内存<br>重启后持久化消息会从文件中恢复，非持久化的临时文件会直接删除 在达到最大限制时，生产者阻塞，消费者可正常连接但不能消费消息，或者原本慢速消费的消费者，消费突然停止。整个系统可连接，但是无法提供服务，就这样挂了</li>
+</ul>
+<p>尽量不要用非持久化消息</p>
+<ul>
+<li>丢消息<br>当网络发送方发送一堆数据，然后调用close关闭连接之后。这些发送的数据都在接收者的缓存里，接收者如果调用read方法仍旧能从缓存中读取这些数据，尽管对方已经关闭了连接。但是当接收者尝试发送数据时，由于此时连接已关闭<br>ctiveMQ会每隔10秒发送一个心跳包，这个心跳包是服务器发送给客户端的，用来判断客户端死没死 当客户端发完消息调用connection.close()时，会期待服务器对于关闭连接的回答，如果超过15秒没回答就直接调用socket层的close关闭tcp连接了</li>
+</ul>
+<p>用持久化消息，或者非持久化消息及时处理不要堆积，或者启动事务，启动事务后，commit()方法会负责任的等待服务器的返回，也就不会关闭连接导致消息丢失了。</p>
+<ul>
+<li><p>持久化消息非常慢<br>默认的情况下，非持久化的消息是异步发送的，持久化的消息是同步发送的，遇到慢一点的硬盘，发送消息的速度是无法忍受的。但是在开启事务的情况下，消息都是异步发送的，效率会有2个数量级的提升。</p>
+</li>
+<li><p>消息的不均匀消费<br>2个消费者去处理消息。会发现一个消费者处理了所有的消息，另一个消费者根本没收到消息原因在于ActiveMQ的prefetch机制。当消费者去获取消息时，不会一条一条去获取，而是一次性获取一批，默认是1000条。</p>
+</li>
+</ul>
+<p>将prefetch设为1，每次处理1条消息，处理完再去取，这样也慢不了多少</p>
+<ul>
+<li>死信队列<br>消息处理失败后，不被服务器删除，还能被其他消费者处理或重试，可以关闭AUTO_ACKNOWLEDGE 重试6次后，ActiveMQ认为这条消息是“有毒”的，将会把消息丢到死信队列里</li>
+</ul>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul>
+<li>windows安装<br>官方下载地址：<a href="http://activemq.apache.org/download-archives.html" target="_blank" rel="noopener">http://activemq.apache.org/download-archives.html</a>  jdk安装要求看下载的版本要求</li>
+</ul>
+<p>解压 启动安装目录 bin目录下的activemq.bat</p>
+<p>如启动出现错误 一闪而过 请修改你的计算机名称 右键电脑属性进行修改 英文字母不含其他特殊符号</p>
+<p>浏览器输入：<a href="http://localhost:8161/admin/" target="_blank" rel="noopener">http://localhost:8161/admin/</a> 账号和密码都为 admin</p>
+<ul>
+<li>Linux安装<br>官网下载<br>解压：tar -zxvf apache-activemq-5.13.4-bin.tar.gz<br>配置：可以使用默认配置 无需修改<br>启动：进入bin目录 ./activemq start<br>管理界面：<a href="http://192.168.1.100:8161" target="_blank" rel="noopener">http://192.168.1.100:8161</a></li>
+</ul>
+<h3 id="原理流程"><a href="#原理流程" class="headerlink" title="原理流程"></a>原理流程</h3><p>ActiveMQ组成：<br><img src="http://upload.i20forever.cn/blog/180629/I6k753LB6B.png?imageslim" alt="mark"></p>
+<p>ActiveMQ接发送消息流程图<br><img src="http://upload.i20forever.cn/blog/180629/kF7FCfj4Hl.png?imageslim" alt="mark"></p>
+<h3 id="使用集成"><a href="#使用集成" class="headerlink" title="使用集成"></a>使用集成</h3><p>集成Spring框架 相关配置信息</p>
+<p>集成Spring boot</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ActiveMq</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/29/ActiveMq初体验/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-gradle教程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/29/gradle教程/">&#39;gradle教程&#39;</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/29/gradle教程/" class="archive-article-date">
+  	<time datetime="2018-06-29T01:27:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="gradle简介"><a href="#gradle简介" class="headerlink" title="gradle简介"></a>gradle简介</h4><p>Gradle是一个基于Apache Ant 和 Apache Maven概念的项目自动化构建工具，使用Groovy特定语言DSL来声明项目设置，抛弃了基于xml的繁琐配置，主要面向Java应用</p>
+<h4 id="gradle和maven比较"><a href="#gradle和maven比较" class="headerlink" title="gradle和maven比较"></a>gradle和maven比较</h4><ul>
+<li>gradle灵活性比较好，可扩展到其他生态圈，嵌入到其他系统中去，maven模型比较僵硬，一些个性化配置很难实现</li>
+<li>gradle引用依赖语法比较简洁</li>
+<li>项目结构 Gradle项目中使用了标准的Maven项目结构 无需多余配置 只需要在文件中含有apply plugin:’java’</li>
+</ul>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>Gradle官网：<a href="https://gradle.org/install/#manually" target="_blank" rel="noopener">https://gradle.org/install/#manually</a><br>下载二进制文件 解压 添加到path环境变量即可<br>测试 gradle -v</p>
+<h4 id="相关使用"><a href="#相关使用" class="headerlink" title="相关使用"></a>相关使用</h4><p>创建Task 任务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">task hello1 &lt;&lt; &#123;</span><br><span class="line">   println &apos;hello1&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&lt;&lt; 追加的意思  等同于 doLast</p>
+<p>添加依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">task hello5(dependsOn:hello4) &lt;&lt; &#123;</span><br><span class="line">    println &apos;hello5&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>配置Task属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">task showDescription2 &lt;&lt; &#123;</span><br><span class="line">   println description</span><br><span class="line">&#125;</span><br><span class="line">showDescription2.description = &apos;this is task showDescription&apos;</span><br></pre></td></tr></table></figure></p>
+<p>gradle闭包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">task showDescription3 &lt;&lt; &#123;</span><br><span class="line">   println description</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">showDescription3 &#123;</span><br><span class="line">   description = &apos;this is task showDescription&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>增量式构建<br>每个Task都可以设有输入(inputs和输出(outputs) 在执行Task时如果他的输入和输出没有于前一次执行时没有发生变化，那么gradle会认为该Task是最新的，不予执行 这样避免了Task反复构建</p>
+<p>Project属性配置<br>常用Property</p>
+<ul>
+<li>project：Project本身</li>
+<li>name：Project的名字</li>
+<li>path：Project的绝对路径</li>
+<li>description：Project的描述信息</li>
+<li>buildDir：Project构建结果存放目录</li>
+<li>version：Project的版本号</li>
+</ul>
+<p>使用Java Plugin并配置不同类型文件位置</p>
+<p>如果存在依赖冲突，在默认情况下，Gradle会选择最新版本，这和Maven是不同的，Maven会选择离依赖树最近的版本。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">gradle</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/29/gradle教程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-数据结构和算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -152,7 +372,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/20/数据结构和算法/">&#39;数据结构和算法&#39;</a>
+      <a class="article-title" href="/2018/06/20/数据结构和算法/">数据结构和算法</a>
     </h1>
   
 
@@ -945,170 +1165,6 @@
 
 
   
-    <article id="post-Spring bean生命周期" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/08/Spring bean生命周期/">Spring bean生命周期</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/08/Spring bean生命周期/" class="archive-article-date">
-  	<time datetime="2018-04-08T07:06:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="Spring中Bean生命周期过程"><a href="#Spring中Bean生命周期过程" class="headerlink" title="Spring中Bean生命周期过程"></a>Spring中Bean生命周期过程</h4><p>spring管理bean生命周期有两种，一种是Bean工厂对bean的管理，另一种是上下文对bean的管理</p>
-<p><img src="http://upload.i20forever.cn/blog/180408/c0BhbEjk8B.png?imageslim" alt="mark"></p>
-<ul>
-<li>Spring对bean实例化 默认bean是单例</li>
-<li>Spring将值和Bean的引用注入进Bean对应的属性 也就是IOC注入</li>
-<li>如果这个Bean实现了BeanNameAware接口，会调用它实现的setBeanName(String beanId)方法 此处床底的是Spring配置文件中bean的ID</li>
-<li>如果这个Bean实现了BeanFactoryAware接口，会调用它实现的setBeanFactory(),传递的是Spring工厂本身(可以用这个方法获取到其他bean)</li>
-<li>如果这个Bean实现ApplicationContextAware接口，会调用setApplicationContext(ApplicationContext)方法，传入Spring上下文，该放手同一可以实现步骤4，但比4更好，以为ApplicationContext是BeanFactory的子接口，有更多的实现方法</li>
-<li>如果这个Bean关联了BeanPostProcessor接口，将会调用postProcessBeforeInitialization（Object obj,String s）方法，BeanPostProcessor经常被用作是Bean内容的更改，并且由于这个是在Bean初始化结束调用After方法，也可用来内存或缓存结束</li>
-<li>如果这个Bean在Spring配置文件配置init-method属性会自动调用其配置的初始化方法</li>
-<li>如果这个Bean关联了BeanPostProcessor接口，将会调用postAfterInitialization(Object obj,String s)方法 注意：以上工作完成以后就可以用这个Bean了，那这个Bean是一个single,所以一般情况下我们调用同一个ID的Bean会是在内容地址相同的实例</li>
-<li>当Bean不再需要时，会经过清理阶段，如果Bean实现了DisposableBean接口，会调用其实现的destory方法</li>
-<li>最后当这个Bean的Spring配置中配置了destroy-method属性，会自动调用其配置的销毁方法</li>
-<li>如果应用Spring的工厂也就是BeanFactory的话去掉第5步就Ok了</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/08/Spring bean生命周期/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-思维导图" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/07/思维导图/">思维导图</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/07/思维导图/" class="archive-article-date">
-  	<time datetime="2018-04-07T11:12:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="校招面经"><a href="#校招面经" class="headerlink" title="校招面经"></a>校招面经</h3><p><img src="http://upload.i20forever.cn/blog/180407/jj0gCHJIeD.png?imageslim" alt="mark"><br>
-        
-          <a class="article-more-a" href="/2018/04/07/思维导图/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">xmind</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/07/思维导图/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1206,6 +1262,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ActiveMq</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
@@ -1214,23 +1278,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IDEA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color5">IDEA</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">synchronize</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1242,10 +1298,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lombok</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
@@ -1254,19 +1306,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lombok</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1274,11 +1318,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">volatile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
+                <a href="javascript:void(0)" class="js-tag color2">gradle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1286,7 +1326,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">synchronize</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1295,6 +1351,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">xmind</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">volatile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
