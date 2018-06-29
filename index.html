@@ -145,6 +145,225 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-数据结构和算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/20/数据结构和算法/">&#39;数据结构和算法&#39;</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/20/数据结构和算法/" class="archive-article-date">
+  	<time datetime="2018-06-20T07:28:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><ul>
+<li><p>单链表基本增删查改操作</p>
+</li>
+<li><p>从链表删除重复数据</p>
+</li>
+</ul>
+<p>思路一：额外空间，链表遍历把值存放在HashMap里</p>
+<p>思路二：双重循环：外层正常循环遍历链表，内层循环假如从curl节点开始，那么将后面指向的节点值和curl节点值比较是否有相同的，如果有的直接去掉</p>
+<ul>
+<li>如何找出单链表倒数第K个值</li>
+</ul>
+<p>思路一：遍历的到长度，查找length-k+1的结点值</p>
+<p>思路二：两个指针，一个指针指向头结点，另一个指针往前领先k-1个位置，然后同时往前遍历，当快指针指向尾部的时候，慢指针指向的结点的值就是倒数第K个值</p>
+<ul>
+<li>如何实现单链表反转</li>
+</ul>
+<p>假设i j k 三个结点反转，反转是后面结点的下一个指向前一个结点，显然链表的头结点就是原链表的尾结点即null,那么必须要有一个来保存j结点保证链表不断</p>
+<ul>
+<li>从尾到头输出单链表</li>
+</ul>
+<p>思路一：跟据栈的特性先进后出</p>
+<p>思路二：利用递归</p>
+<ul>
+<li>寻找单链表中间结点</li>
+</ul>
+<p>两个指针，两个指针指向头结点，一个指针每次移动一步，另一个指针每次移动两步，当快指针到达尾部时。当链表长度为奇数：慢指针的位置就是中间结点，偶数时慢指针的位置和下一个结点位置是中间结点</p>
+<ul>
+<li>检测链表是否有环</li>
+</ul>
+<p>两个指针指向头结点，快指针每次移动两步步，慢指针每次移动一步，当快指针等于慢指针时那么链表有环</p>
+<ul>
+<li>在不知道头指针的情况下删掉结点</li>
+</ul>
+<p>情况一：当删掉的结点为尾结点时，不能删除，因为倒数的二个结点的值无法设置为null</p>
+<p>情况二：当删掉的结点不是尾结点时，把结点的值换成下一个结点的值，把下一个结点删除</p>
+<ul>
+<li>判断两个链表是否相交，得出相交的结点</li>
+</ul>
+<p>如果两个链表相交，那么他们的尾结点一定相同</p>
+<p>如果len1 和len2分别为两个链表的长度，假设len1&gt;len2 那么长度大的从len1-len2的位置开始和长度小的一起遍历，第一个相同的结点即相交的结点</p>
+<h3 id="栈和队列"><a href="#栈和队列" class="headerlink" title="栈和队列"></a>栈和队列</h3><p>栈：LIFO算法(后进先出)</p>
+<p>队列：FIFO算法(先进先出)</p>
+<ul>
+<li><p>栈的实现</p>
+</li>
+<li><p>用O(1)的时间复杂度求栈中最小元素</p>
+</li>
+</ul>
+<p>空间换时间，创建一个辅助栈，每次入栈时，把栈中的最小元素放入辅助栈中，然后推出时的元素和辅助栈顶的元素相同时，也把辅助栈的元素推出</p>
+<ul>
+<li>队列的实现</li>
+</ul>
+<p>用两个栈来模拟队列</p>
+<p>一个压人栈A 一个弹出栈B</p>
+<p>情况一：如果B不是空，直接把B里面的元素弹出</p>
+<p>情况二：如果B是空，把A的全部弹出到B内，然后由B弹出</p>
+<ul>
+<li>用两个队列来模拟栈</li>
+</ul>
+<p>队列A   队列B</p>
+<p>情况一：如果A队列只有一个元素直接弹出</p>
+<p>情况二：如果A队列有多个元素，那么先把A队列的元素弹出到B队列，保留最后一个元素，把最后一个元素输出，然后把B队列的元素继续弹出到A队列</p>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><ul>
+<li><p>选择排序<br>从一组记录中依次选出最小的值放在新记录中</p>
+</li>
+<li><p>插入排序<br>从一组记录中依次提取第一个元素通过比较插入到新记录中合适位置</p>
+</li>
+<li><p>冒泡排序<br>一次遍历全部元素，每次遍历将第一个元素和后面的进行比较并且交换位置</p>
+</li>
+<li><p>归并排序<br>递归划分半子表 然后合并</p>
+</li>
+<li><p>快速排序<br>选取基准，小的放左边，大的放右边</p>
+</li>
+<li><p>希尔排序<br>选取步长因子批量插入</p>
+</li>
+<li><p>堆排序<br>构建完全二叉树，排序 大顶堆 小顶堆</p>
+</li>
+</ul>
+<h3 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h3><ul>
+<li><p>移位操作实现乘法运算<br>右移一位乘以2 左移一位除以2</p>
+</li>
+<li><p>判断一个数是否为2的n次方<br>方法一：移位操作判断移位的次数是否和给定的数相同 O(logn)<br>方法二：利用2的n次方二进制只有第一位为1，通过n&amp;(n-1)运算结果是否为0来判断 O(1)</p>
+</li>
+<li><p>二进制数中1的个数<br>方法一：先判断最后一位是不是为1，如果为1统计，然后再向左移位丢弃 O(n)</p>
+</li>
+</ul>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><ul>
+<li><p>寻找数组中最小值和最大值<br>遍历一次 通过比较获得最大值和最小值</p>
+</li>
+<li><p>数组中第二个最大数<br>通过两个变量来存储最大值和第二最大值，先比较当前最大数，将值放在最大值，更新时判断是否大于最大值，如果大于最大值更新，把原来的最大值存在第二最大值，如果小于将第二最大值与值比较，进行赋值操作</p>
+</li>
+<li><p>最大子数组之和<br>方法一：蛮力法，求出所有子数组的和，然后比较得到最大值<br>方法二：动态规划方法<br>1、最大子数组就是最后一个元素<br>2、最大子数组包含最后一个元素<br>3、最大子数组不包含最后一个元素</p>
+<ul>
+<li>找出数组中重复数字<br>使用Map映射表</li>
+</ul>
+</li>
+<li><p>求两个数组中两两相加等于20的组合种数<br>先排序，判读数字的大致范围</p>
+<ul>
+<li><p>如何把一个数组循环右移k位<br>把数组分为两段逆序数组，3次逆序操作<br>先将第一个逆序数组子序列逆序<br>然后将后面的逆序数组子序列逆序<br>再将整体逆序</p>
+</li>
+<li><p>寻找数组中第k个最小的数<br>剪枝法，利用快速排序的思想，选取temp = a[n-1] 小的放左边大的放右边<br>判断temp的位置是不是k-1，如果位置大于k-1，那么向左进行递归选取，否则向右进行递归选取</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>寻找数组中只出现一次的数字，其他出现2次<br>采用异或运算，任何异或它自己的都等于0</p>
+</li>
+<li><p>寻找数组中出现一次，其他出现3次<br>采用二进制取模的方法，通过余下的得到只出现一次的二进制</p>
+</li>
+<li><p>找出数组唯一重复的数<br>方法一：只能访问一次 使用数字求和法 减去1到n-1的和<br>方法二：访问多次 位图法 异或法</p>
+</li>
+<li><p>如何用递归方法求一个整数数组的最大值<br>数组的第一个元素为max,然后从第二个元素开始遍历与max比较 值更新</p>
+</li>
+<li><p>求数组中两个数差的最大值<br>方法一：二分法 减数和被减数都在左边 减数和被减数都在右边 减数在左被减数在右 求这三个的最大值<br>方法二：动态规划</p>
+</li>
+<li><p>求有序数组中绝对值最小的数<br>情况一：第一个元素非负 最小为这个<br>情况二：最后一个元素为负 最小为这个<br>情况三：数组中既有正数也有负数，通过二分查找来获取临界点 </p>
+</li>
+<li><p>求重复数组中两个数的最小值<br>当遇到n1时记录n1的位置和记录n2的位置进行比较 把值用变量存储 然后比较后面的值</p>
+</li>
+<li><p>求指定数字在数组中第一次出现的位置，相邻数字之间差为1<br>方法一：跳跃式搜索 获取数组的第一个元素 计算要指定数字和第一个元素的差k，直接跳过k-1个位置</p>
+</li>
+<li><p>对两个数组子有序段进行合并<br>遍历前有序段，比较第一段a[left]和第二段a[right],如果小于交换位置，把之前的a[left]插入到第二段合适位置</p>
+</li>
+<li><p>求有序整数数组交集<br>方法一：两路归并法 遍历两个数组 如有重复便记录下来 如果a[i] 大于b[j] a[i]停下 b[j]继续;如果a[i] 小于 b[j]<br>b[j]停下 a[i]继续 直到有一个数组遍历完后结束<br>方法二：二分遍历法 如果两个数组的长度相距太大，可以采用二分查找的方法，去a[i]的一个元素在b[j]二分查找，判断是否有，如果有把指针指向该位置的前一个 如果没有  遍历下一个</p>
+</li>
+<li><p>判断数组数字是否相邻 不重复出现 随机取出5个数字<br>非0情况 最大值减去最小值 值等于4<br>有0情况 最大值减去最小值 值小于4</p>
+</li>
+<li><p>数组中反序对的个数<br>分治归并</p>
+</li>
+<li><p>最小三元组距离<br>最小距离法</p>
+</li>
+</ul>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><ul>
+<li><p>实现字符的反转<br>整体反转一次 单个单词反转一次</p>
+</li>
+<li><p>判断两个字符串是否相同字符组成<br>方法一：排序后再对比两个字符串<br>方法二：空间换时间 ASCII266个字符 定义一个266长度的数组 第一个字符串遍历 在对应的ASCII下标位置加一 在变量第二个字符串 在对应的位置减去1 如果数组有值为1的即不相同</p>
+</li>
+<li><p>去掉字符串重复字符<br>方法一：字符串看做一个字符数组 双重循环遍历 将第一个与后面的比较 如果重复则置为’\0’ 然后去掉数组的’\0’<br>方法二：空间换时间 256的字符数组 相应位置 如果为0 则置为1 如果为1 则置为’\0’</p>
+</li>
+<li><p>统计字符有多少个单词<br>如果第一个字符不为空格 则开始统计count 如果当前不为空格且前面也不为空格则不统计 前一个空格可以用word表示</p>
+</li>
+<li><p>打印数组的排列情况<br>构造一个无向连通图 然后深度优先遍历 放入set中</p>
+</li>
+<li></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构 算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/20/数据结构和算法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-认识spring cloud" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -165,8 +384,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Spring的一个快速开发工具<br>不是什么新的框架，它默认配置了很多框架的使用方式<br>基本上零配置简化了基于Spring的应用开发<br>内置了tomcat服务器</p>
-<p>微服务 独立部署 水平扩展 独立访问（或者有独立的数据库）的服务单元<br>优点：<br>项目太庞大，启动都要10多分钟<br>扩展性差</p>
+        <p>Spring boot<br>Spring的一个快速开发工具<br>不是什么新的框架，它默认配置了很多框架的使用方式<br>基本上零配置简化了基于Spring的应用开发<br>内置了tomcat服务器</p>
+<p>微服务 独立部署 水平扩展 独立访问（或者有独立的数据库）的服务单元<br>传统项目的缺点：<br>项目太庞大，启动都要10多分钟<br>扩展性差</p>
 <p>Spring Cloud 这些微服务的大管家 分布式服务治理的框架 本身不会提供具体功能性的操作，更专注于服务之间的通讯、熔断、监控</p>
 <p>服务熔断：服务出现过载，防止整个系统保障采取的一种保护措施<br>服务降级：系统整体资源快不够了，只能舍弃关闭某些服务，等资源充足的时候在开启<br>Spring Cloud很大的一部分是基于Spring Boot来实现<br>Spring Boot可以离开Spring Cloud独立使用开发项目，但是Spring Cloud离不开Spring Boot，属于依赖的关系</p>
 <ul>
@@ -890,124 +1109,6 @@
 
 
   
-    <article id="post-操作系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/06/操作系统/">操作系统知识总结</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/06/操作系统/" class="archive-article-date">
-  	<time datetime="2018-04-06T10:38:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><h4 id="进程的几种状态"><a href="#进程的几种状态" class="headerlink" title="进程的几种状态"></a>进程的几种状态</h4><ul>
-<li>创建状态</li>
-<li>就绪状态</li>
-<li>执行状态</li>
-<li>阻塞状态</li>
-<li>退出状态</li>
-</ul>
-<h4 id="作业-进程-调度算法"><a href="#作业-进程-调度算法" class="headerlink" title="作业(进程)调度算法"></a>作业(进程)调度算法</h4><ul>
-<li>FCFS(先来先服务调度)</li>
-<li>SPF(短进程优先调度)</li>
-<li>HPF(优先权调度 抢占/非抢占)</li>
-<li>HRN(高响应比优先调度 响应比=(等待时间+要求服务时间)/要求服务时间)</li>
-<li>RR(时间片轮转)</li>
-<li>多级反馈队列调度算法</li>
-</ul>
-<h4 id="进程间的通信方式"><a href="#进程间的通信方式" class="headerlink" title="进程间的通信方式"></a>进程间的通信方式</h4><ul>
-<li>管道</li>
-<li>信号量：计数器，控制多个进程对共享资源的访问，锁机制</li>
-<li>消息队列</li>
-<li>信号</li>
-<li>共享内存</li>
-<li>套接字：可用于不同机器间的进程通信</li>
-</ul>
-<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><h4 id="死锁概念"><a href="#死锁概念" class="headerlink" title="死锁概念"></a>死锁概念</h4><blockquote>
-<p>两个或两个以上的进程，由于竞争资源或者由于彼此通信而造成的一种阻塞的现象，若无外力作用，它们都将无法推进下去<br>活锁:指的是任务或者执行者没有被阻塞，由于某些条件没有满足，导致一直重复尝试，失败，尝试，失败</p>
-</blockquote>
-<h4 id="死锁条件"><a href="#死锁条件" class="headerlink" title="死锁条件"></a>死锁条件</h4><ol>
-<li>互斥条件：一个资源每次只能被一个进程使用</li>
-<li>不可剥夺条件：进程已获得的资源，在未使用完之前，不能强行剥夺</li>
-<li>请求与保持条件：一个进程因请求资源而阻塞时，对已获得的资源保持不放</li>
-<li>循环等待条件：若干进程之间形成一种头尾连接的循环等待资源关系</li>
-</ol>
-<h4 id="死锁预防"><a href="#死锁预防" class="headerlink" title="死锁预防"></a>死锁预防</h4><ol>
-<li>破坏互斥条件：允许某些进程同时访问某些资源</li>
-<li>破坏不可抢占条件：允许进程强行从占有着那里夺取某些资源</li>
-<li>破坏占有且申请条件：预先分配资源，进程在运行前一次性系统申请它所需要的全部资源，如果得不到满足，不分配任何资源</li>
-<li>破坏循环等待条件：资源分类编号，按号分配，所有进程对资源的请求必须严格按资源需要递增的顺序提出</li>
-</ol>
-<h4 id="死锁的避免"><a href="#死锁的避免" class="headerlink" title="死锁的避免"></a>死锁的避免</h4><ul>
-<li><strong>银行家算法</strong></li>
-<li>加锁顺序(线程按照一定的顺序加锁)</li>
-<li>加锁时限(线程尝试获取锁的时候加上一定的时限，超过时限则放弃对锁的请求，并释放自己占有的锁)</li>
-<li>死锁检测</li>
-</ul>
-<h4 id="死锁例子"><a href="#死锁例子" class="headerlink" title="死锁例子"></a>死锁例子</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">/** </span><br><span class="line">* 一个简单的死锁类 </span><br><span class="line">* 当DeadLock类的对象flag==1时（td1），先锁定o1,睡眠500毫秒 </span><br><span class="line">* 而td1在睡眠的时候另一个flag==0的对象（td2）线程启动，先锁定o2,睡眠500毫秒 </span><br><span class="line">* td1睡眠结束后需要锁定o2才能继续执行，而此时o2已被td2锁定； </span><br><span class="line">* td2睡眠结束后需要锁定o1才能继续执行，而此时o1已被td1锁定； </span><br><span class="line">* td1、td2相互等待，都需要得到对方锁定的资源才能继续执行，从而死锁。 </span><br><span class="line">*/ </span><br><span class="line">public class DeadLock implements Runnable &#123;  </span><br><span class="line">    public int flag = 1;  </span><br><span class="line">    //静态对象是类的所有对象共享的  </span><br><span class="line">    private static Object o1 = new Object(), o2 = new Object();  </span><br><span class="line">    @Override </span><br><span class="line">    public void run() &#123;  </span><br><span class="line">        System.out.println(&quot;flag=&quot; + flag);  </span><br><span class="line">        if (flag == 1) &#123;  </span><br><span class="line">            synchronized (o1) &#123;  </span><br><span class="line">                try &#123;  </span><br><span class="line">                    Thread.sleep(500);  </span><br><span class="line">                &#125; catch (Exception e) &#123;  </span><br><span class="line">                    e.printStackTrace();  </span><br><span class="line">                &#125;  </span><br><span class="line">                synchronized (o2) &#123;  </span><br><span class="line">                    System.out.println(&quot;1&quot;);  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        if (flag == 0) &#123;  </span><br><span class="line">            synchronized (o2) &#123;  </span><br><span class="line">                try &#123;  </span><br><span class="line">                    Thread.sleep(500);  </span><br><span class="line">                &#125; catch (Exception e) &#123;  </span><br><span class="line">                    e.printStackTrace();  </span><br><span class="line">                &#125;  </span><br><span class="line">                synchronized (o1) &#123;  </span><br><span class="line">                    System.out.println(&quot;0&quot;);  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">   </span><br><span class="line">    public static void main(String[] args) &#123;  </span><br><span class="line">           </span><br><span class="line">        DeadLock td1 = new DeadLock();  </span><br><span class="line">        DeadLock td2 = new DeadLock();  </span><br><span class="line">        td1.flag = 1;  </span><br><span class="line">        td2.flag = 0;  </span><br><span class="line">        //td1,td2都处于可执行状态，但JVM线程调度先执行哪个线程是不确定的。  </span><br><span class="line">        //td2的run()可能在td1的run()之前运行  </span><br><span class="line">        new Thread(td1).start();  </span><br><span class="line">        new Thread(td2).start();  </span><br><span class="line">   </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">操作系统</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/06/操作系统/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1113,15 +1214,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IDEA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IDEA</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1145,15 +1246,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">maven</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1165,23 +1274,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">volatile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1189,15 +1282,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构 算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">xmind</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
+                <a href="javascript:void(0)" class="js-tag color3">spring cloud</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">spring cloud</a>
+                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
               </li>
              
               <li class="article-tag-list-item">
