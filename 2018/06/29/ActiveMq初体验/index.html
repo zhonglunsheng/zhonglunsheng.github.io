@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="http://blog.i20forever.cn">
   <title>ActiveMq初体验 | Lipop&#39;s博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ActiveMq相关####WHATActiveMQ是一种开源的，实现了JMS规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。 ####Advantage  activemq可以很好的运行在任何JVM上，而不只是集成到JBoss的应用服务器中 activemq支持大量的跨语言客户端 activemq支持许多不同的协议，如Ajax，REST，Stom">
+  <meta name="description" content="ActiveMq相关WHATActiveMQ是一种开源的，实现了JMS规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。">
 <meta name="keywords" content="ActiveMq">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ActiveMq初体验">
 <meta property="og:url" content="http://blog.i20forever.cn/2018/06/29/ActiveMq初体验/index.html">
 <meta property="og:site_name" content="Lipop&#39;s博客">
-<meta property="og:description" content="ActiveMq相关####WHATActiveMQ是一种开源的，实现了JMS规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。 ####Advantage  activemq可以很好的运行在任何JVM上，而不只是集成到JBoss的应用服务器中 activemq支持大量的跨语言客户端 activemq支持许多不同的协议，如Ajax，REST，Stom">
+<meta property="og:description" content="ActiveMq相关WHATActiveMQ是一种开源的，实现了JMS规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://upload.i20forever.cn/blog/180629/I6k753LB6B.png?imageslim">
 <meta property="og:image" content="http://upload.i20forever.cn/blog/180629/kF7FCfj4Hl.png?imageslim">
-<meta property="og:updated_time" content="2018-06-29T07:25:33.610Z">
+<meta property="og:updated_time" content="2018-06-29T07:43:49.632Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ActiveMq初体验">
-<meta name="twitter:description" content="ActiveMq相关####WHATActiveMQ是一种开源的，实现了JMS规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。 ####Advantage  activemq可以很好的运行在任何JVM上，而不只是集成到JBoss的应用服务器中 activemq支持大量的跨语言客户端 activemq支持许多不同的协议，如Ajax，REST，Stom">
+<meta name="twitter:description" content="ActiveMq相关WHATActiveMQ是一种开源的，实现了JMS规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。">
 <meta name="twitter:image" content="http://upload.i20forever.cn/blog/180629/I6k753LB6B.png?imageslim">
   
     <link rel="alternative" href="/atom.xml" title="Lipop&#39;s博客" type="application/atom+xml">
@@ -168,9 +168,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="ActiveMq相关"><a href="#ActiveMq相关" class="headerlink" title="ActiveMq相关"></a>ActiveMq相关</h3><p>####WHAT<br>ActiveMQ是一种开源的，实现了JMS规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。</p>
-<p>####Advantage</p>
-<ul>
+        <h3 id="ActiveMq相关"><a href="#ActiveMq相关" class="headerlink" title="ActiveMq相关"></a>ActiveMq相关</h3><h4 id="WHAT"><a href="#WHAT" class="headerlink" title="WHAT"></a>WHAT</h4><p>ActiveMQ是一种开源的，实现了JMS规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。</p>
+<a id="more"></a>
+<h4 id="Advantage"><a href="#Advantage" class="headerlink" title="Advantage"></a>Advantage</h4><ul>
 <li>activemq可以很好的运行在任何JVM上，而不只是集成到JBoss的应用服务器中</li>
 <li>activemq支持大量的跨语言客户端</li>
 <li>activemq支持许多不同的协议，如Ajax，REST，Stomp，OpenWire，XMPP</li>
@@ -179,15 +179,13 @@
 <li>activemq是速度非常快；一般要比jbossmq快10倍</li>
 <li>activemq支持跨网络的分布式目的地</li>
 </ul>
-<p>####应用场景(消息队列)</p>
-<ul>
+<h4 id="应用场景-消息队列"><a href="#应用场景-消息队列" class="headerlink" title="应用场景(消息队列)"></a>应用场景(消息队列)</h4><ul>
 <li>异步处理 </li>
 <li>流量削峰</li>
 <li>应用解耦</li>
 <li>消息通讯(点对点 私聊 发布和订阅 群聊)<br>详细介绍：<a href="https://blog.csdn.net/he90227/article/details/50800646" target="_blank" rel="noopener">https://blog.csdn.net/he90227/article/details/50800646</a></li>
 </ul>
-<p>####相关问题和解决方案</p>
-<ul>
+<h4 id="相关问题和解决方案"><a href="#相关问题和解决方案" class="headerlink" title="相关问题和解决方案"></a>相关问题和解决方案</h4><ul>
 <li>服务挂掉<br>非持久化消息是存储在内存中的，持久化消息是存储在文件中的 在非持久化消息堆积到一定程度，内存告急的时候，ActiveMQ会将内存中的非持久化消息写入临时文件中，以腾出内存<br>重启后持久化消息会从文件中恢复，非持久化的临时文件会直接删除 在达到最大限制时，生产者阻塞，消费者可正常连接但不能消费消息，或者原本慢速消费的消费者，消费突然停止。整个系统可连接，但是无法提供服务，就这样挂了</li>
 </ul>
 <p>尽量不要用非持久化消息</p>
@@ -303,7 +301,7 @@
   
   
     <a href="/2018/06/29/gradle教程/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">&#39;gradle教程&#39;</div>
+      <div class="article-nav-title">gradle教程</div>
       <i class="icon-circle-right"></i>
     </a>
   

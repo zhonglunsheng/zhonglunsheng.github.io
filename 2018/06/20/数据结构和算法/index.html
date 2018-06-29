@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Lipop&#39;s博客">
 <meta property="og:description" content="链表 单链表基本增删查改操作  从链表删除重复数据   思路一：额外空间，链表遍历把值存放在HashMap里 思路二：双重循环：外层正常循环遍历链表，内层循环假如从curl节点开始，那么将后面指向的节点值和curl节点值比较是否有相同的，如果有的直接去掉  如何找出单链表倒数第K个值  思路一：遍历的到长度，查找length-k+1的结点值 思路二：两个指针，一个指针指向头结点，另一个指针往前领先">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-06-29T03:06:25.754Z">
+<meta property="og:updated_time" content="2018-06-29T07:45:10.128Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构和算法">
 <meta name="twitter:description" content="链表 单链表基本增删查改操作  从链表删除重复数据   思路一：额外空间，链表遍历把值存放在HashMap里 思路二：双重循环：外层正常循环遍历链表，内层循环假如从curl节点开始，那么将后面指向的节点值和curl节点值比较是否有相同的，如果有的直接去掉  如何找出单链表倒数第K个值  思路一：遍历的到长度，查找length-k+1的结点值 思路二：两个指针，一个指针指向头结点，另一个指针往前领先">
@@ -257,17 +257,14 @@
 <li><p>数组中第二个最大数<br>通过两个变量来存储最大值和第二最大值，先比较当前最大数，将值放在最大值，更新时判断是否大于最大值，如果大于最大值更新，把原来的最大值存在第二最大值，如果小于将第二最大值与值比较，进行赋值操作</p>
 </li>
 <li><p>最大子数组之和<br>方法一：蛮力法，求出所有子数组的和，然后比较得到最大值<br>方法二：动态规划方法<br>1、最大子数组就是最后一个元素<br>2、最大子数组包含最后一个元素<br>3、最大子数组不包含最后一个元素</p>
-<ul>
-<li>找出数组中重复数字<br>使用Map映射表</li>
-</ul>
+</li>
+<li><p>找出数组中重复数字<br>使用Map映射表</p>
 </li>
 <li><p>求两个数组中两两相加等于20的组合种数<br>先排序，判读数字的大致范围</p>
-<ul>
+</li>
 <li><p>如何把一个数组循环右移k位<br>把数组分为两段逆序数组，3次逆序操作<br>先将第一个逆序数组子序列逆序<br>然后将后面的逆序数组子序列逆序<br>再将整体逆序</p>
 </li>
 <li><p>寻找数组中第k个最小的数<br>剪枝法，利用快速排序的思想，选取temp = a[n-1] 小的放左边大的放右边<br>判断temp的位置是不是k-1，如果位置大于k-1，那么向左进行递归选取，否则向右进行递归选取</p>
-</li>
-</ul>
 </li>
 </ul>
 <ul>
@@ -398,7 +395,7 @@
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          &#39;gradle教程&#39;
+          gradle教程
         
       </div>
     </a>
