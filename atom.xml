@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Lipop&#39;s blog</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://lipop.gitee.io/"/>
+  <updated>2020-02-08T11:27:49.675Z</updated>
+  <id>https://lipop.gitee.io/</id>
+  
+  <author>
+    <name>zhonglunsheng</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo博客搭建</title>
+    <link href="https://lipop.gitee.io/2020/02/08/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    <id>https://lipop.gitee.io/2020/02/08/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</id>
+    <published>2020-02-08T11:04:08.000Z</published>
+    <updated>2020-02-08T11:27:49.675Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;环境安装&quot;&gt;&lt;a href=&quot;#环境安装&quot; class=&quot;headerlink&quot; title=&quot;环境安装&quot;&gt;&lt;/a&gt;环境安装&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;node&lt;/li&gt;
+&lt;li&gt;git&lt;/li&gt;
+&lt;li&gt;hexo&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;mkdir blog&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd blog&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm i hexo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hexo init&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm i hexo-server #hexo服务启动&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm install hexo-deployer-git --save #git插件&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm i hexo-generator-feed #添加RSS&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="博客" scheme="https://lipop.gitee.io/categories/%E5%8D%9A%E5%AE%A2/"/>
+    
+    
+      <category term="hexo" scheme="https://lipop.gitee.io/tags/hexo/"/>
+    
+  </entry>
+  
+</feed>
